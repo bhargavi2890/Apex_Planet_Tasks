@@ -1,42 +1,59 @@
-const quotes = [
-    "Believe you can and you're halfway there. – Theodore Roosevelt",
-    "We are what our thoughts have made us; so take care about what you think. Words are secondary. Thoughts live; they travel far.- Swami Vivekananda",
-    "The only way to do great work is to love what you do. – Steve Jobs",
-    "You are never too old to set another goal. – C.S. Lewis",
-    "It's important to learn and not repeat the same mistakes. What's done is done- MS Dhoni",
-   "Success is not final, failure is not fatal: It is the courage to continue that counts. – Winston Churchill",
-   "Even death is not to be feared by one who has lived wisely- Buddha", 
-   "The future belongs to those who believe in the beauty of their dreams. – Eleanor Roosevelt",
-    "Do what you can, with what you have, where you are. – Theodore Roosevelt",
-    "It always seems impossible until it's done. – Nelson Mandela"
-];
+document.getElementById('contactForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const form = e.target;
+    const fields = {
+        name: { value: form.name.value.trim(), error: 'nameError', required: true },
+        email: { 
+            value: form.email.value.trim(), 
+            error: 'emailError', 
+            required: true, 
+            regex: /^[^\s@]+@[^\s@]+\.[^\s@]+$/ 
+        },
+        phone: { 
+            value: form.phone.value.trim(), 
+            error: 'phoneError', 
+            regex: /^\d{10}$/ 
+        },
+        message: { value: form.message.value.trim(), error: 'messageError', required: true }
+    };
+    Object.values(fields).forEach(field => {
+        document.getElementById(field.error).style.display = 'none';
+    });
 
-function generateQuote() {
-    // Smooth fade out effect
-    const quoteElement = document.getElementById("quote");
-    quoteElement.style.opacity = 0;
-    
-    setTimeout(() => {
-        // Randomly select a quote
-        const randomIndex = Math.floor(Math.random() * quotes.length);
-        quoteElement.textContent = quotes[randomIndex];
-        
-        // Randomly change colors (more subtle and pleasing)
-        const hue = Math.floor(Math.random() * 360);
-        const pastelColor = `hsl(${hue}, 70%, 60%)`;
-        const bgColor = `hsl(${hue}, 30%, 95%)`;
-        
-        quoteElement.style.color = pastelColor;
-        quoteElement.style.borderLeftColor = pastelColor;
-        document.body.style.backgroundColor = bgColor;
-        
-        // Smooth fade in effect
-        quoteElement.style.opacity = 1;
-    }, 500);
-}
-function confirmRedirect() {
-    const userConfirmed = confirm("You're about to visit BrainyQuote.com for more inspirational quotes. Do you want to continue?");
-    if (userConfirmed) {
-        window.open("https://www.brainyquote.com/", "_blank");
+    for (const [fieldName, field] of Object.entries(fields)) {
+        if (field.required && !field.value) {
+            return showError(field.error);
+        }
+        if (field.regex && field.value && !field.regex.test(field.value)) {
+            return showError(field.error);
+        }
     }
-   }
+
+    alert('Form submitted successfully!');
+    form.reset();
+});
+
+function showError(errorId) {
+    document.getElementById(errorId).style.display = 'block';
+}
+document.getElementById('addTodoBtn').addEventListener('click', addTodo);
+document.getElementById('todoInput').addEventListener('keypress', e => {
+    if (e.key === 'Enter') addTodo();
+});
+
+function addTodo() {
+    const input = document.getElementById('todoInput');
+    const text = input.value.trim();
+    if (!text) return alert('Please enter a task');
+    
+    const li = document.createElement('li');
+    li.className = 'todo-item';
+    li.innerHTML = `
+        <span class="todo-text">${text}</span>
+        <button class="delete-btn">Delete</button>
+    `;
+    li.querySelector('.delete-btn').addEventListener('click', () => li.remove());
+    
+    document.getElementById('todoList').appendChild(li);
+    input.value = '';
+}

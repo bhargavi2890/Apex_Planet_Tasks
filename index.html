@@ -3,22 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inspirational Quote Generator</title>
+    <title>Task 2 - Intermediate Web Development</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <header>
+        <div class="container">
+            <h1>TO-DO LIST</h1>
+            <p>Contact-Form</p>
+        </div>
+    </header>
+
+    <nav>
+        <div class="nav-container container">
+            <div class="logo">Task-2</div>
+            <ul class="nav-links">
+                <li><a href="#contact">Contact Form</a></li>
+                <li><a href="#todo">To-Do List</a></li>
+            </ul>
+        </div>
+    </nav>
+
     <div class="container">
-        <div class="quote-box">
-            <h1>Inspirational Quote Generator</h1>
-            <p class="subheading">Get motivated with daily inspiration. Each click reveals a powerful quote to brighten your day and spark creativity.</p>
-            <img src="lightbulb-icon.jpeg" alt="Lightbulb Icon" class="icon">
-            <div id="quote" class="quote-text">Click the button to get a quote!</div>
-            <button onclick="generateQuote()">New Quote</button>
-            <a href="#" onclick="confirmRedirect()" class="more-link">More Quotes</a>
+        <div class="main-content">
+            <section class="section" id="contact">
+                <h2>Contact Form</h2>
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" name="name" required>
+                        <div class="error" id="nameError">Please enter your name</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required>
+                        <div class="error" id="emailError">Please enter a valid email address</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number (optional):</label>
+                        <input type="tel" id="phone" name="phone" placeholder="10-digit number">
+                        <div class="error" id="phoneError">Please enter a valid 10-digit phone number</div>
+</div>
+                    <div class="form-group">
+                        <label for="message">Message:</label>
+                        <textarea id="message" name="message" required></textarea>
+                        <div class="error" id="messageError">Please enter your message</div>
+                    </div>
+                    <button type="submit" class="submit-btn">Submit</button>
+                </form>
+            </section>
+
+            <section class="section" id="todo">
+                <h2>To-Do List</h2>
+                <div class="todo-app">
+                    <input type="text" class="todo-input" id="todoInput" placeholder="Add a new task...">
+                    <button class="add-todo-btn" id="addTodoBtn">Add Task</button>
+                    <ul class="todo-list" id="todoList"></ul>
+                </div>
+            </section>
         </div>
     </div>
-   
+
+    <footer>
+        <div class="container">
+            <p>&copy;TO-DO List Application.</p>
+        </div>
+    </footer>
+
     <script src="script.js"></script>
 </body>
 </html>
